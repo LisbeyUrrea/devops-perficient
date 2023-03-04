@@ -13,6 +13,8 @@ stages:
 - stage:
   jobs:
   - job:
+    variables:
+     SONAR_TOKEN: $(SONAR_TOKEN)
     steps:
     - script: mvn clean install
       displayName: 'Maven install'
