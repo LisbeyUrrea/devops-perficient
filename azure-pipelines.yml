@@ -14,8 +14,8 @@ stages:
   jobs:
   - job:
     steps:
-    - script: pwd
-      displayName: 'Mostrar en donde estoy cuando ejecuto el pipeline'
+    - script: mvn clean install
+      displayName: 'Maven install'
+    - script: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lisbeyurrea_wwcode
+      displayName: 'sonar'
 
-    - script: ls
-      displayName: 'Mostrar archivos en la maquina'
