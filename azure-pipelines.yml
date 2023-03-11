@@ -16,8 +16,9 @@ stages:
     variables:
      SONAR_TOKEN: $(SONAR_TOKEN)
     steps:
+    - script: echo $(SONAR_TOKEN)
     - script: mvn clean install
       displayName: 'Maven install'
-    - script: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lisbeyurrea_wwcode
-      displayName: 'sonar'
+    #- script: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lisbeyurrea_wwcode
+    #  displayName: 'sonar'
 
