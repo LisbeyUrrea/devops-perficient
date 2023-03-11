@@ -14,9 +14,9 @@ public class Calculator {
         return number1 * number2;
     }
 
-    public int division(int dividen, int divisor){
+    public int division(int divider, int divisor){
         if(divisor <= 0) throw new IllegalArgumentException("We can divide by 0");
-        return dividen / divisor;
+        return divider / divisor;
     }
 
     @Override

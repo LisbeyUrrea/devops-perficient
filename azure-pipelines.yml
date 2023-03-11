@@ -9,16 +9,26 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  SONAR_TOKEN: $(sonarToken)
+
+
 stages:
-- stage:
-  jobs:
-  - job:
-    variables:
-     SONAR_TOKEN: $(SONAR_TOKEN)
-    steps:
-    - script: echo $(SONAR_TOKEN)
-    - script: mvn clean install
-      displayName: 'Maven install'
-    #- script: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lisbeyurrea_wwcode
-    #  displayName: 'sonar'
+  - stage: build
+    jobs:
+    - job: build
+      steps:
+      - script: mvn clean compile
+        displayName: 'Build'
+      - script: mvn test
+        displayName: 'test'
+      - script: mvn install
+        displayName: 'package'
+  - stage: sonar
+    dependsOn: build
+    jobs:
+      - job: build
+        steps:
+          - script: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lisbeyurrea_wwcode -Dsonar.login=$(SONAR_TOKEN)
+            displayName: 'sonar'
 
